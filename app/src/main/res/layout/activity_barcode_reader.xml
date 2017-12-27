@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <me.dm7.barcodescanner.zxing.ZXingScannerView
+        android:layout_width="match_parent"
+        android:id="@+id/zxing"
+        android:layout_height="match_parent">
+
+    </me.dm7.barcodescanner.zxing.ZXingScannerView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pls_scan_barcode"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/submit"
+        android:background="@drawable/primary_btn"/>
+</RelativeLayout>

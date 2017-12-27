@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="General">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="pref_radians"
+            android:summary="Display angles as arc length divided by radius."
+            android:title="Use radians" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Appearance">
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/theme_colors"
+            android:entryValues="@array/theme_colors_entries"
+            android:key="pref_theme"
+            android:summary="Choose the theme color for the UI and launcher icon."
+            android:title="Accent color" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="pref_dark"
+            android:summary="Make the background a dark gray color."
+            android:title="Dark theme" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Other">
+        <Preference
+            android:key="pref_rate"
+            android:summary="Share your opinion on the Google Play store."
+            android:title="Rate Calculator v2" />
+    </PreferenceCategory>
+</PreferenceScreen>

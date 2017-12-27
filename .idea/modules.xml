@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/calculator-dialog/calculator-dialog.iml" filepath="$PROJECT_DIR$/calculator-dialog/calculator-dialog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/customview-helper/customview-helper.iml" filepath="$PROJECT_DIR$/customview-helper/customview-helper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sundatepicker/sundatepicker.iml" filepath="$PROJECT_DIR$/sundatepicker/sundatepicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tirana-porcelain-admin-app.iml" filepath="$PROJECT_DIR$/tirana-porcelain-admin-app.iml" />
+    </modules>
+  </component>
+</project>

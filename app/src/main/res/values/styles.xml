@@ -1,0 +1,66 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Launcher" parent="AppTheme.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowActionBarOverlay">false</item>
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+    </style>
+
+    <style name="DatePickerDialog" parent="Theme.AppCompat.Light.Dialog.MinWidth">
+        <item name="colorPrimary">#297cde</item>
+        <item name="colorPrimaryDark">#2962de</item>
+        <item name="colorAccent">#297cde</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:textColor">@color/item_text_color</item>
+        <item name="nextIcon">@drawable/ic_navigate_next_black_24dp</item>
+        <item name="beforeIcon">@drawable/ic_navigate_before_black_24dp</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="editTextStyle">@style/AppTheme.EditText</item>
+    </style>
+
+    <style name="AppTheme.EditText" parent="Base.V7.Widget.AppCompat.EditText">
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="AppTheme.TextInputLayout" parent="Widget.Design.TextInputLayout">
+        <item name="errorTextAppearance">@style/AppTheme.TextInputLayout.ErrorTextAppearance</item>
+    </style>
+
+    <style name="AppTheme.TextInputLayout.ErrorTextAppearance" parent="AppTheme.TextInputLayout.ErrorTextAppearance">
+        <item name="android:gravity">right</item>
+        <item name="android:layout_gravity">right</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog.MinWidth">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="editTextStyle">@style/AppTheme.EditText</item>
+    </style>
+
+    <style name="AppTheme.Dialog.NoTitle" parent="AppTheme.Dialog">
+        <item name="windowActionBar">false</item>
+        <item name="windowActionBarOverlay">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

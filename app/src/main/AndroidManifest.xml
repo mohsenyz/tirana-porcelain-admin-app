@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tiranaporcelain.admin">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name="com.tiranaporcelain.admin.AccountryApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/account"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/account"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:fullBackupContent="@xml/backup_descriptor">
+        <activity
+            android:name="ir.tapsell.sdk.TapsellAdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name="com.tiranaporcelain.admin.activity.MainActivity"
+            android:theme="@style/AppTheme.Launcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tiranaporcelain.admin.activity.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.tiranaporcelain.admin.activity.DashboardActivity"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.tiranaporcelain.admin.activity.NewCategoryActivity"
+            android:theme="@style/AppTheme.Dialog.NoTitle" />
+        <activity
+            android:name="com.tiranaporcelain.admin.activity.NewCustomerActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.tiranaporcelain.admin.activity.NewProductActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.tiranaporcelain.admin.activity.BarcodeReaderActivity"
+            android:theme="@style/AppTheme.Dialog.NoTitle" />
+        <activity
+            android:name="com.tiranaporcelain.admin.activity.SelectCategoryActivity"
+            android:theme="@style/AppTheme.Dialog.NoTitle" />
+        <activity
+            android:name="com.tiranaporcelain.admin.activity.SelectCustomerActivity"
+            android:theme="@style/AppTheme.Dialog.NoTitle" />
+        <activity
+            android:name="com.tiranaporcelain.admin.activity.SelectProductActivity"
+            android:theme="@style/AppTheme.Dialog.NoTitle" />
+        <activity
+            android:name="com.tiranaporcelain.admin.activity.GetCountActivity"
+            android:theme="@style/AppTheme.Dialog.NoTitle" />
+        <activity
+            android:name="com.tiranaporcelain.admin.activity.ExportProductActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.tiranaporcelain.admin.activity.NewTransactionReaddedActivity"
+            android:theme="@style/AppTheme.Dialog.NoTitle" />
+        <activity
+            android:name="com.tiranaporcelain.admin.activity.AlertActivity"
+            android:theme="@style/AppTheme.Dialog.NoTitle" />
+        <activity
+            android:name="com.tiranaporcelain.admin.activity.SelectPaymentTypeActivity"
+            android:theme="@style/AppTheme.Dialog.NoTitle" />
+        <activity android:name="com.tiranaporcelain.admin.activity.ExportTypeActivity"
+            android:theme="@style/AppTheme.Dialog.NoTitle"></activity>
+    </application>
+
+</manifest>

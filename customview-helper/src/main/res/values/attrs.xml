@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RoundedImage">
+        <attr name="shadow" format="boolean" />
+        <attr name="shadowRadius" format="dimension"/>
+        <attr name="radiusOffset" format="dimension"/>
+    </declare-styleable>
+</resources>

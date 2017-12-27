@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Accountry</string>
+
+    <string name="hint_username">نام کاربری</string>
+    <string name="hint_password">کلمه ی عبور</string>
+
+    <string name="login">ورود</string>
+
+    <string name="err_wrong_credential">نام کاربری یا کلمه ی عبور اشتباه است</string>
+    <string name="title_activity_dashboard">حسابداری شفق</string>
+    <string name="turning_on_internet">روشن کردن اینترنت</string>
+    <string name="err_while_connecting">خطا در اتصال!</string>
+    <string name="hint_new_storage">نام دسته بندی جدید</string>
+    <string name="err_invalid_storage_name">نام دسته بندی غیر معتبر است</string>
+    <string name="submit">تایید</string>
+    <string name="err_datas_may_wrong_because_network">لطفا به اینترنت متصل شوید. ممکن است اطلاعاتی که میبینید معتبر نباشند.</string>
+    <string name="hint_name">نام</string>
+    <string name="hint_phone">شماره تلفن</string>
+    <string name="hint_serial">شناسه</string>
+    <string name="hint_customer_price">قیمت مصرف کننده</string>
+    <string name="pls_scan_barcode">لطفا دوربین را مقابل بارکد قرار دهید</string>
+    <string name="err_input_not_valid">ورودی معتبر نمی باشد</string>
+    <string name="hint_price">قیمت</string>
+    <string name="hint_off">تخفیف</string>
+    <string name="html_phone_eq"><![CDATA[<font color="#297cde">تلفن : </font><font color="#FBC02D">xxx</font>]]></string>
+    <string name="html_date_eq"><![CDATA[<font color="#297cde">تاریخ : </font><font color="#FBC02D">xxx</font>]]></string>
+    <string name="html_price_eq"><![CDATA[<font color="#4CAF50">قیمت : </font> xxx]]></string>
+    <string name="html_off_eq"><![CDATA[<font color="#F44336">تخفیف : </font> xxx درصد]]></string>
+    <string name="html_storage_title"><![CDATA[دسته بندی <font color="#297cde">xxx</font>]]></string>
+    <string name="html_product_title"><![CDATA[محصول <font color="#297cde">xxx</font>]]></string>
+    <string name="html_customer_title"><![CDATA[مشتری :  <font color="#297cde">xxx</font>]]></string>
+    <string name="select_storage">انتخاب دسته بندی</string>
+    <string name="select_customer">انتخاب مشتری</string>
+    <string name="select_product">انتخاب محصول</string>
+    <string name="hint_storage">دسته بندی</string>
+    <string name="from_camera">دوربین</string>
+    <string name="from_excel">فایل اکسل</string>
+    <string name="add_product">لیست محصولات</string>
+    <string name="count">تعداد</string>
+    <string name="html_count_eq"><![CDATA[<font color="#3F51B5">تعداد : </font> xxx]]></string>
+    <string name="hint_customer">مشتری</string>
+</resources>
