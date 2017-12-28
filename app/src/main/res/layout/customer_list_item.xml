@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_button"
                 android:textColor="#fff"
-                android:text="تراکنش ها"
+                android:text="آمار"
                 android:id="@+id/submit"
                 android:layout_margin="4dp"
                 android:textSize="11dp"

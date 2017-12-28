@@ -10,6 +10,4 @@ import java.util.List;
 
 public interface CategorySettingView {
     void setAdapter(List<SimpleListModel> list);
-    void showProductList();
-    void showAddProductActivity();
 }

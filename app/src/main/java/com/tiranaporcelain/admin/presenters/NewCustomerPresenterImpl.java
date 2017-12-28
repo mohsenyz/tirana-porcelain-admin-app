@@ -31,7 +31,11 @@ public class NewCustomerPresenterImpl implements NewCustomerPresenter {
     }
 
     @Override
-    public void createCustomer(String name, String phone) {
+    public void createCustomer(String name,
+                               String phone,
+                               String fixedPhone,
+                               String address,
+                               String description) {
         if (TextUtils.isEmpty(name)) {
             view.invalidName();
             return;
@@ -47,6 +51,9 @@ public class NewCustomerPresenterImpl implements NewCustomerPresenter {
         Customer customer = new Customer();
         customer.setName(name);
         customer.setPhone(phone);
+        customer.setFixedPhone(fixedPhone);
+        customer.setAddress(address);
+        customer.setDescription(description);
         customer.setCreatedAt(System.currentTimeMillis() / 1000L);
         customerDao.save(customer);
 

@@ -79,6 +79,7 @@ public class SimpleDrawable extends Drawable implements Animatable, Runnable {
     @Override
     public void start() {
         isRunning = true;
+        radius = 0;
         invalidateSelf();
         scheduleSelf(this, SystemClock.uptimeMillis() + FRAME);
     }

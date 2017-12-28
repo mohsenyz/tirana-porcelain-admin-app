@@ -7,15 +7,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.tiranaporcelain.admin.activity.DashboardActivity;
 import com.tiranaporcelain.admin.fragment.CategoryListFragment;
-import com.tiranaporcelain.admin.fragment.CheckListFragment;
 import com.tiranaporcelain.admin.fragment.CustomerListFragment;
 import com.tiranaporcelain.admin.fragment.MainFragment;
 import com.tiranaporcelain.admin.fragment.PlaceHolderFragment;
-import com.tiranaporcelain.admin.fragment.ReportListFragment;
 import com.tiranaporcelain.admin.models.db.CategoryDao;
-import com.tiranaporcelain.admin.models.db.CheckDao;
 import com.tiranaporcelain.admin.models.db.CustomerDao;
-import com.tiranaporcelain.admin.models.db.TransactionDao;
 import com.tiranaporcelain.admin.utils.DaoManager;
 
 /**
@@ -47,17 +43,8 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
                 if (customerDao.count() == 0)
                     return PlaceHolderFragment.newInstance(0);
                 return CustomerListFragment.newInstance();
-            case CHECKS:
-                CheckDao checkDao = DaoManager.session().getCheckDao();
-                int size = (int) checkDao.count();
-                if (size == 0)
-                    return PlaceHolderFragment.newInstance(0);
-                return CheckListFragment.newInstance();
             case REPORTS:
-                TransactionDao transactionDao = DaoManager.session().getTransactionDao();
-                if (transactionDao.count() == 0)
-                    return PlaceHolderFragment.newInstance(0);
-                return ReportListFragment.newInstance();
+                return PlaceHolderFragment.newInstance(0);
         }
         return PlaceHolderFragment.newInstance(position + 1);
     }
@@ -90,5 +77,5 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
         return POSITION_NONE;
     }
 
-    public static final int HOME = 3, REPORTS = 2, PRODUCTS = 1, CUSTOMERS = 0, CHECKS = -1;
+    public static final int HOME = 3, REPORTS = 2, PRODUCTS = 1, CUSTOMERS = 0;
 }

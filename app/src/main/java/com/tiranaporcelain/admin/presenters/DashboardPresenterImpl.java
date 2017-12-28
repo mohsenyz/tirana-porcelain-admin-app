@@ -11,7 +11,7 @@ import com.tiranaporcelain.admin.utils.ArrayUtils;
 public class DashboardPresenterImpl implements DashboardPresenter {
 
     DashboardView view;
-    private static final int[] UNFABBED_PAGES = {SectionsPagerAdapter.HOME, SectionsPagerAdapter.CHECKS};
+    private static final int[] UNFABBED_PAGES = {SectionsPagerAdapter.HOME};
     int currentPosition;
 
     public DashboardPresenterImpl(DashboardView view){
@@ -48,11 +48,10 @@ public class DashboardPresenterImpl implements DashboardPresenter {
                 view.showNewCategoryActivity();
                 break;
             case SectionsPagerAdapter.REPORTS:
-                view.showExportProductActivity();
                 break;
             default:
                 throw new RuntimeException(
-                        "Nothing implemnted for position " + currentPosition
+                        "Nothing implemented for position " + currentPosition
                 );
         }
     }

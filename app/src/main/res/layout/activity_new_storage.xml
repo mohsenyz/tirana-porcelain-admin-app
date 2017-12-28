@@ -19,7 +19,7 @@
             android:gravity="right"
             android:layout_marginRight="8dp"
             android:layout_marginTop="14dp"
-            android:text="افزودن دسته بندی جدید"/>
+            android:text="افزودن محصول جدید"/>
     </android.support.v7.widget.Toolbar>
     <View
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:hint="@string/hint_new_storage" />
+            android:hint="نام محصول" />
 
     </android.support.design.widget.TextInputLayout>
     <Button

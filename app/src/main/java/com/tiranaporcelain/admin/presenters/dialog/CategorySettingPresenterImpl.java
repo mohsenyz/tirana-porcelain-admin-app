@@ -1,7 +1,5 @@
 package com.tiranaporcelain.admin.presenters.dialog;
 
-import android.view.View;
-
 import com.tiranaporcelain.admin.R;
 import com.tiranaporcelain.admin.interfaces.dialog.CategorySettingView;
 import com.tiranaporcelain.admin.models.SimpleListModel;
@@ -35,19 +33,7 @@ public class CategorySettingPresenterImpl implements CategorySettingPresenter {
         List<SimpleListModel> list = new ArrayList<>();
         SimpleListModel model = new SimpleListModel("ویرایش", R.drawable.ic_gray_edit);
         list.add(model);
-        model = new SimpleListModel("لیست محصولات", R.drawable.ic_gray_list, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view.showProductList();
-            }
-        });
         list.add(model);
-        model = new SimpleListModel("افزودن محصول", R.drawable.ic_add, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view.showAddProductActivity();
-            }
-        });
         list.add(model);
         view.setAdapter(list);
     }

@@ -15,11 +15,22 @@ import butterknife.OnClick;
 
 public class NewCustomerActivity extends BaseActivity implements NewCustomerView{
 
-    @BindView(R.id.input_phone)
-    EditText phone;
 
     @BindView(R.id.input_name)
     EditText name;
+
+    @BindView(R.id.input_phone)
+    EditText phone;
+
+    @BindView(R.id.input_fixed_phone)
+    EditText fixedPhone;
+
+    @BindView(R.id.input_address)
+    EditText address;
+
+    @BindView(R.id.input_description)
+    EditText description;
+
 
     @BindString(R.string.err_input_not_valid)
     String errInputNotValid;
@@ -53,6 +64,12 @@ public class NewCustomerActivity extends BaseActivity implements NewCustomerView
 
     @OnClick(R.id.submit)
     void onSubmit(){
-        presenter.createCustomer(name.getText().toString(), phone.getText().toString());
+        presenter.createCustomer(
+                name.getText().toString(),
+                phone.getText().toString(),
+                fixedPhone.getText().toString(),
+                address.getText().toString(),
+                description.getText().toString()
+        );
     }
 }

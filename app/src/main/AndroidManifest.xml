@@ -41,38 +41,18 @@
         <activity
             android:name="com.tiranaporcelain.admin.activity.NewCustomerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.tiranaporcelain.admin.activity.NewProductActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.tiranaporcelain.admin.activity.BarcodeReaderActivity"
-            android:theme="@style/AppTheme.Dialog.NoTitle" />
-        <activity
+=        <activity
             android:name="com.tiranaporcelain.admin.activity.SelectCategoryActivity"
             android:theme="@style/AppTheme.Dialog.NoTitle" />
         <activity
             android:name="com.tiranaporcelain.admin.activity.SelectCustomerActivity"
             android:theme="@style/AppTheme.Dialog.NoTitle" />
         <activity
-            android:name="com.tiranaporcelain.admin.activity.SelectProductActivity"
-            android:theme="@style/AppTheme.Dialog.NoTitle" />
-        <activity
             android:name="com.tiranaporcelain.admin.activity.GetCountActivity"
-            android:theme="@style/AppTheme.Dialog.NoTitle" />
-        <activity
-            android:name="com.tiranaporcelain.admin.activity.ExportProductActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.tiranaporcelain.admin.activity.NewTransactionReaddedActivity"
             android:theme="@style/AppTheme.Dialog.NoTitle" />
         <activity
             android:name="com.tiranaporcelain.admin.activity.AlertActivity"
             android:theme="@style/AppTheme.Dialog.NoTitle" />
-        <activity
-            android:name="com.tiranaporcelain.admin.activity.SelectPaymentTypeActivity"
-            android:theme="@style/AppTheme.Dialog.NoTitle" />
-        <activity android:name="com.tiranaporcelain.admin.activity.ExportTypeActivity"
-            android:theme="@style/AppTheme.Dialog.NoTitle"></activity>
     </application>
 
 </manifest>

@@ -9,8 +9,6 @@ public interface DashboardView {
     void endProgress();
     void showFab();
     void hideFab();
-    void showNewProductActivity();
     void showNewCategoryActivity();
     void showNewCustomerActivity();
-    void showExportProductActivity();
 }

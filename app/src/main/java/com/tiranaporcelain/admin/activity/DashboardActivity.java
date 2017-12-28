@@ -172,10 +172,6 @@ public class DashboardActivity extends BaseActivity implements DashboardView, Vi
                 .start();
     }
 
-    @Override
-    public void showNewProductActivity() {
-        startActivity(new Intent(this, NewProductActivity.class));
-    }
 
     @Override
     public void showNewCategoryActivity() {
@@ -185,10 +181,6 @@ public class DashboardActivity extends BaseActivity implements DashboardView, Vi
     @Override
     public void showNewCustomerActivity() {
         startActivity(new Intent(this, NewCustomerActivity.class));
-    }
-    @Override
-    public void showExportProductActivity() {
-        startActivity(new Intent(this, ExportProductActivity.class));
     }
 
     @Override

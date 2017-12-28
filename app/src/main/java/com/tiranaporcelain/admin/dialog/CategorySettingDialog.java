@@ -1,7 +1,6 @@
 package com.tiranaporcelain.admin.dialog;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.tiranaporcelain.admin.R;
-import com.tiranaporcelain.admin.activity.NewProductActivity;
 import com.tiranaporcelain.admin.adapter.SimpleListAdapter;
 import com.tiranaporcelain.admin.interfaces.dialog.CategorySettingView;
 import com.tiranaporcelain.admin.models.SimpleListModel;
@@ -72,19 +70,5 @@ public class CategorySettingDialog extends BottomSheetDialogFragment implements 
     public void setAdapter(List<SimpleListModel> list) {
         simpleListAdapter = new SimpleListAdapter(list);
         recyclerView.setAdapter(simpleListAdapter);
-    }
-
-    @Override
-    public void showProductList() {
-        BottomSheetDialogFragment bottomSheetDialogFragment = CategoryProductListDialog.create(category);
-        bottomSheetDialogFragment.show(getActivity().getSupportFragmentManager(), "");
-    }
-
-
-    @Override
-    public void showAddProductActivity() {
-        Intent i = new Intent(getActivity(), NewProductActivity.class);
-        i.putExtra("category", Parcels.wrap(Category.class, category));
-        startActivity(i);
     }
 }
