@@ -43,6 +43,9 @@ public class DashboardActivity extends BaseActivity implements DashboardView, Vi
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
 
+    @BindView(R.id.fab_menu)
+    LinearLayout fabMenu;
+
     int lastPosition = SectionsPagerAdapter.HOME;
 
 
@@ -68,7 +71,9 @@ public class DashboardActivity extends BaseActivity implements DashboardView, Vi
         presenter = new DashboardPresenterImpl(this);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        toolbar.setBackground(new SimpleDrawable());
+        SimpleDrawable simpleDrawable = new SimpleDrawable();
+        simpleDrawable.setDurationMillis(300);
+        toolbar.setBackground(simpleDrawable);
         initTabs();
     }
 
@@ -82,10 +87,7 @@ public class DashboardActivity extends BaseActivity implements DashboardView, Vi
             toolbar.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    SimpleDrawable simpleDrawable = (SimpleDrawable) toolbar.getBackground();
-                    simpleDrawable.setBackgroundColor(Color.WHITE);
-                    simpleDrawable.setRippleColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimaryDark));
-                    simpleDrawable.start();
+                    doForPosition3();
                 }
             }, 500);
         }
@@ -125,16 +127,56 @@ public class DashboardActivity extends BaseActivity implements DashboardView, Vi
                 bottomBar.get(3 - position).getChildAt(1),
                 (float) 1.2
         );
-        SimpleDrawable simpleDrawable = (SimpleDrawable) toolbar.getBackground();
-        if (position == 3) {
-            simpleDrawable.setBackgroundColor(Color.WHITE);
-            simpleDrawable.setRippleColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
-            simpleDrawable.start();
+        if (position == 3 && firstFocus) {
+            doForPosition3();
         } else {
-            simpleDrawable.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
-            simpleDrawable.setRippleColor(Color.WHITE);
-            simpleDrawable.start();
+            doForOther();
         }
+        if (position != 2) {
+            hideFabMenu();
+        }
+    }
+
+
+    @Override
+    public void hideFabMenu() {
+        fabMenu.animate()
+                .translationY(70)
+                .alpha(0)
+                .setDuration(300)
+                .withEndAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        fabMenu.setVisibility(View.GONE);
+                    }
+                })
+                .start();
+    }
+
+    @Override
+    public void showFabMenu() {
+        fabMenu.setAlpha(0);
+        fabMenu.setTranslationY(70);
+        fabMenu.setVisibility(View.VISIBLE);
+        fabMenu.animate()
+                .translationY(0)
+                .alpha(1)
+                .setDuration(300)
+                .start();
+    }
+
+    void doForPosition3() {
+        SimpleDrawable simpleDrawable = (SimpleDrawable) toolbar.getBackground();
+        simpleDrawable.setBackgroundColor(Color.WHITE);
+        simpleDrawable.setRippleColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        simpleDrawable.start();
+    }
+
+    void doForOther() {
+        SimpleDrawable simpleDrawable = (SimpleDrawable) toolbar.getBackground();
+        simpleDrawable.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        simpleDrawable.setRippleColor(Color.WHITE);
+        simpleDrawable.start();
     }
 
     @OnClick(R.id.fab)

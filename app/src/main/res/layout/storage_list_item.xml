@@ -24,7 +24,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/round_button"
                     android:textColor="#fff"
-                    android:text="افزودن محصول"
+                    android:text="آمار"
                     android:id="@+id/submit"
                     android:layout_margin="4dp"
                     android:layout_centerVertical="true"

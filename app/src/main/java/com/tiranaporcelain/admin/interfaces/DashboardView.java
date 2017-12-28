@@ -8,6 +8,8 @@ public interface DashboardView {
     void startProgress();
     void endProgress();
     void showFab();
+    void showFabMenu();
+    void hideFabMenu();
     void hideFab();
     void showNewCategoryActivity();
     void showNewCustomerActivity();

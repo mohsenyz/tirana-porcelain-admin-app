@@ -43,7 +43,50 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
-
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="155dp"
+        android:layout_gravity="left|bottom"
+        android:gravity="left"
+        android:visibility="gone"
+        android:id="@+id/fab_menu"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gray_bg"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textSize="12dp"
+            android:textColor="#fff"
+            android:text="ثبت کارکرد"
+            android:layout_marginBottom="3dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gray_bg"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textSize="12dp"
+            android:textColor="#fff"
+            android:text="ثبت کسورات"
+            android:layout_marginBottom="3dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gray_bg"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textSize="12dp"
+            android:textColor="#fff"
+            android:text="تسویه حساب"
+            android:layout_marginBottom="3dp"
+            />
+    </LinearLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -53,7 +96,6 @@
         android:layout_marginLeft="16dp"
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_add" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="58dp"

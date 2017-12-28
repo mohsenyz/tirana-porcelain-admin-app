@@ -31,12 +31,17 @@ public class DashboardPresenterImpl implements DashboardPresenter {
     @Override
     public void onPageChanged(int position) {
         currentPosition = position;
+        if (currentPosition == 2) {
+            isFabMenuShown = false;
+        }
         if(ArrayUtils.contains(UNFABBED_PAGES, position)){
             view.hideFab();
         } else {
             view.showFab();
         }
     }
+
+    boolean isFabMenuShown = false;
 
     @Override
     public void onFabClick() {
@@ -48,6 +53,12 @@ public class DashboardPresenterImpl implements DashboardPresenter {
                 view.showNewCategoryActivity();
                 break;
             case SectionsPagerAdapter.REPORTS:
+                if (isFabMenuShown) {
+                    view.hideFabMenu();
+                } else {
+                    view.showFabMenu();
+                }
+                isFabMenuShown = !isFabMenuShown;
                 break;
             default:
                 throw new RuntimeException(

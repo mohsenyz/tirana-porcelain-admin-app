@@ -28,7 +28,7 @@ public class SimpleDrawable extends Drawable implements Animatable, Runnable {
 
     int radius = 0;
     int maxRadius = -1;
-    int durationMillis = 500;
+    int durationMillis = 400;
     int backgroundColor = Color.YELLOW;
     int rippleColor = Color.BLUE;
     final int FRAME = 1000 / 60;
@@ -78,6 +78,8 @@ public class SimpleDrawable extends Drawable implements Animatable, Runnable {
 
     @Override
     public void start() {
+        if (isRunning())
+            return;
         isRunning = true;
         radius = 0;
         invalidateSelf();
