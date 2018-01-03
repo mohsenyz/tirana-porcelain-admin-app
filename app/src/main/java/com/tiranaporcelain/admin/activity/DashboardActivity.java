@@ -138,6 +138,24 @@ public class DashboardActivity extends BaseActivity implements DashboardView, Vi
     }
 
 
+    @OnClick(R.id.fab_menu_rep_work)
+    public void onClickRepWork() {
+        startActivity(new Intent(this, ReportWorkActivity.class));
+    }
+
+
+    @OnClick(R.id.fab_menu_rep_dec)
+    public void onClickRepDec() {
+
+    }
+
+
+    @OnClick(R.id.fab_menu_pay_debit)
+    public void onClickPayDebit() {
+
+    }
+
+
     @Override
     public void hideFabMenu() {
         fabMenu.animate()
