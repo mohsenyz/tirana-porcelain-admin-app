@@ -1,7 +1,10 @@
 package com.tiranaporcelain.admin.activity;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
 
 import com.alirezaafkar.sundatepicker.DatePicker;
@@ -13,11 +16,12 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnFocusChange;
+import butterknife.OnTouch;
 
 public class ReportWorkActivity extends BaseActivity implements DateSetListener {
 
     JDF currentDate = new JDF();
+    DatePicker datePicker;
 
     @BindView(R.id.input_date)
     EditText date;
@@ -35,16 +39,19 @@ public class ReportWorkActivity extends BaseActivity implements DateSetListener 
         date.setText(currentDate.getIranianDate());
     }
 
-    @OnFocusChange(R.id.input_date)
-    void onDateFocus(boolean hasFocus) {
-        if (!hasFocus)
-            return;
-        DatePicker datePicker = new DatePicker.Builder()
-                .future(true)
-                .theme(R.style.DatePickerDialog)
-                .date(currentDate)
-                .build(this);
-        datePicker.show(getSupportFragmentManager(), "DatePicker");
+
+    @OnTouch(R.id.input_date)
+    boolean onDateTouch(View view, MotionEvent motionEvent) {
+        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+            Rect rect = new Rect(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
+            if (!rect.contains(view.getLeft() + (int) motionEvent.getX(),
+                    view.getTop() + (int) motionEvent.getY()))
+                return true;
+            if (getDatePicker().isVisible())
+                return true;
+            getDatePicker().show(getSupportFragmentManager(), "DatePicker");
+        }
+        return true;
     }
 
 
@@ -52,5 +59,18 @@ public class ReportWorkActivity extends BaseActivity implements DateSetListener 
     public void onDateSet(int id, @Nullable Calendar calendar, int day, int month, int year) {
         currentDate = new JDF(calendar);
         date.setText(currentDate.getIranianDate());
+        date.clearFocus();
+    }
+
+
+    public synchronized DatePicker getDatePicker() {
+        if (datePicker == null) {
+            datePicker = new DatePicker.Builder()
+                    .future(true)
+                    .theme(R.style.DatePickerDialog)
+                    .date(currentDate)
+                    .build(this);
+        }
+        return datePicker;
     }
 }
