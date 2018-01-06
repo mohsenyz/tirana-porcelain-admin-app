@@ -25,91 +25,128 @@
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:background="@drawable/dropshadow_1"/>
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_date"
-        android:layout_width="match_parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/input_date"
-            android:layout_width="match_parent"
-            android:textAlignment="center"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="تاریخ" />
-
-    </android.support.design.widget.TextInputLayout>
-    <android.support.v7.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/main_container"
             android:orientation="vertical">
-            <View
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_date"
                 android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@drawable/bp_gradient"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <EditText
-                    android:id="@+id/input_to_time"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.5"
-                    android:textAlignment="center"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:hint="تا ساعت" />
-                <EditText
-                    android:id="@+id/input_from_time"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.5"
-                    android:textAlignment="center"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:hint="از ساعت" />
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="4dp"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <EditText
-                    android:id="@+id/input_working_time"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.5"
-                    android:textAlignment="center"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:drawableLeft="@drawable/bp_gradient"
-                    android:hint="ساعات اضافه" />
-                <EditText
-                    android:id="@+id/input_extra_time"
-                    android:layout_width="0dp"
-                    android:layout_weight="0.5"
-                    android:textAlignment="center"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:hint="ساعات کاری" />
-            </LinearLayout>
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_height="wrap_content">
 
+                <EditText
+                    android:id="@+id/input_date"
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:hint="تاریخ" />
+
+            </android.support.design.widget.TextInputLayout>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@drawable/bp_gradient"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <EditText
+                            android:id="@+id/input_to_time"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:textAlignment="center"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:hint="تا ساعت" />
+                        <EditText
+                            android:id="@+id/input_from_time"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:textAlignment="center"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:hint="از ساعت" />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="4dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <EditText
+                            android:id="@+id/input_working_time"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:textAlignment="center"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:drawableLeft="@drawable/bp_gradient"
+                            android:hint="ساعات اضافه" />
+                        <EditText
+                            android:id="@+id/input_extra_time"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:textAlignment="center"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:hint="ساعات کاری" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textSize="13dp"
+                android:layout_marginRight="3dp"
+                android:textColor="#000"
+                android:text="اجناس تولیدی"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/product_container"
+                android:orientation="vertical">
+
+            </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button_purple"
+                android:textColor="#fff"
+                android:text="افزودن"
+                android:textSize="12dp"
+                android:minHeight="30dp"
+                android:id="@+id/add_product"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+               android:layout_gravity="left"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"
+                android:textColor="#fff"
+                android:text="تایید"
+                android:id="@+id/submit"
+                android:layout_margin="5dp"
+                android:layout_alignParentBottom="true"/>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/round_button"
-        android:textColor="#fff"
-        android:text="تایید"
-        android:id="@+id/submit"
-        android:layout_margin="5dp"
-        android:layout_alignParentBottom="true"/>
+    </ScrollView>
 </LinearLayout>
