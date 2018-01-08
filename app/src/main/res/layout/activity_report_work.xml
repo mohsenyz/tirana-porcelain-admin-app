@@ -91,7 +91,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <EditText
-                            android:id="@+id/input_working_time"
+                            android:id="@+id/input_extra_time"
                             android:layout_width="0dp"
                             android:layout_weight="0.5"
                             android:textAlignment="center"
@@ -100,7 +100,7 @@
                             android:drawableLeft="@drawable/bp_gradient"
                             android:hint="ساعات اضافه" />
                         <EditText
-                            android:id="@+id/input_extra_time"
+                            android:id="@+id/input_working_time"
                             android:layout_width="0dp"
                             android:layout_weight="0.5"
                             android:textAlignment="center"

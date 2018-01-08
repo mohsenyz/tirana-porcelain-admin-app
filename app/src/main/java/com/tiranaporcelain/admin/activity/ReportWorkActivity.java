@@ -14,13 +14,19 @@ import com.alirezaafkar.sundatepicker.DatePicker;
 import com.alirezaafkar.sundatepicker.components.JDF;
 import com.alirezaafkar.sundatepicker.interfaces.DateSetListener;
 import com.tiranaporcelain.admin.R;
+import com.tiranaporcelain.admin.models.db.Report;
+import com.tiranaporcelain.admin.models.db.ReportProduct;
+import com.tiranaporcelain.admin.utils.DaoManager;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTouch;
+import es.dmoral.toasty.Toasty;
 
 public class ReportWorkActivity extends BaseActivity implements
         DateSetListener, View.OnClickListener{
@@ -30,6 +36,12 @@ public class ReportWorkActivity extends BaseActivity implements
 
     @BindView(R.id.input_date)
     EditText date;
+
+    @BindView(R.id.input_working_time)
+    EditText workingTime;
+
+    @BindView(R.id.input_extra_time)
+    EditText extraTime;
 
     @BindView(R.id.product_container)
     LinearLayout productContainer;
@@ -70,6 +82,7 @@ public class ReportWorkActivity extends BaseActivity implements
     public void onDateSet(int id, @Nullable Calendar calendar, int day, int month, int year) {
         currentDate = new JDF(calendar);
         date.setText(currentDate.getIranianDate());
+        date.setTag(calendar.getTime().getTime());
         date.clearFocus();
     }
 
@@ -94,6 +107,7 @@ public class ReportWorkActivity extends BaseActivity implements
         TransitionManager.beginDelayedTransition(productContainer);
         productContainer.addView(productItem);
         productItem.findViewById(R.id.delete).setOnClickListener(this);
+        productItem.findViewById(R.id.input_product_name).setOnClickListener(this);
     }
 
 
@@ -105,5 +119,69 @@ public class ReportWorkActivity extends BaseActivity implements
                 productContainer.removeView((View) v.getParent().getParent().getParent());
                 break;
         }
+    }
+
+
+    @OnClick(R.id.submit)
+    void submit() {
+        Report report = new Report();
+        int workingTime = Integer.parseInt(
+                this.workingTime.getText().toString()
+        );
+        // @TODO Implement these
+        int fromTime = 0;
+        int toTime = 0;
+        int extraTime = 0;
+        int workingTimePrice = 0;
+        int extraTimePrice = 0;
+
+        report.setFromTime(fromTime);
+        report.setToTime(toTime);
+        report.setDate((long) date.getTag());
+        report.setExtraTime(extraTime);
+        report.setWorkingTime(workingTime);
+        report.setExtraTimePrice(extraTimePrice);
+        report.setWorkingTimePrice(workingTimePrice);
+        report.setType(Report.TYPE_WORKING_REPORT);
+        DaoManager.session().getReportDao().save(report);
+        ReportProduct[] reportProducts = validateReportProducts(
+                getProductList(report.getId().intValue())
+        );
+        DaoManager.session().getReportProductDao().saveInTx(reportProducts);
+        Toasty.success(this, "گزارش ثبت شد").show();
+        finish();
+    }
+
+
+    ReportProduct[] validateReportProducts(ReportProduct[] reportProducts) {
+        List<ReportProduct> validatedReportProducts = new ArrayList<>();
+        for (ReportProduct reportProduct : reportProducts) {
+            if (reportProduct.isValid())
+                validatedReportProducts.add(reportProduct);
+        }
+        return (ReportProduct[]) validatedReportProducts.toArray();
+    }
+
+
+    ReportProduct[] getProductList(int reportId) {
+        int productCount = productContainer.getChildCount();
+        ReportProduct[] reportProducts = new ReportProduct[productCount];
+        for (int i = 0; i < productCount; i++) {
+            reportProducts[i] = collectProductFromView(productContainer.getChildAt(i), reportId);
+        }
+        return reportProducts;
+    }
+
+
+    ReportProduct collectProductFromView(View view, int reportId) {
+        EditText countInput = (EditText) view.findViewById(R.id.input_count);
+        EditText priceInput = (EditText) view.findViewById(R.id.input_price);
+        EditText productName = (EditText) view.findViewById(R.id.input_product_name);
+        ReportProduct reportProduct = new ReportProduct();
+        reportProduct.setReportId(reportId);
+        reportProduct.setCount(Integer.parseInt(countInput.getText().toString()));
+        reportProduct.setPrice(Double.valueOf(priceInput.getText().toString()).intValue());
+        reportProduct.setProductId((int) productName.getTag());
+        return reportProduct;
     }
 }
