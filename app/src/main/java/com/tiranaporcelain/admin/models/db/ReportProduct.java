@@ -1,6 +1,7 @@
 package com.tiranaporcelain.admin.models.db;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.parceler.Parcel;
 
@@ -27,6 +28,15 @@ public class ReportProduct {
     }
 
     public ReportProduct() {
+    }
+
+    @Generated(hash = 1047774072)
+    public ReportProduct(Long id, int productId, int price, int count, int reportId) {
+        this.id = id;
+        this.productId = productId;
+        this.price = price;
+        this.count = count;
+        this.reportId = reportId;
     }
     public int getProductId() {
         return this.productId;

@@ -59,4 +59,5 @@ dependencies {
     compile project(':calculator-dialog')
     compile 'com.github.GrenderG:Toasty:1.2.5'
     debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
+    implementation project(':persianmaterialdatetimepicker')
 }

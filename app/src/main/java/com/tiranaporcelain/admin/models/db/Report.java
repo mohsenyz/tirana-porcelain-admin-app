@@ -1,6 +1,7 @@
 package com.tiranaporcelain.admin.models.db;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.parceler.Parcel;
 
@@ -55,6 +56,27 @@ public class Report {
     }
 
     public Report() {
+    }
+
+    @Generated(hash = 1785145994)
+    public Report(Long id, long date, int fromTime, int toTime, int workingTime,
+            int extraTime, int workingTimePrice, int extraTimePrice,
+            int totalProductPrice, int totalTimePrice, int transactionPrice,
+            int type, int transactionType, String description) {
+        this.id = id;
+        this.date = date;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
+        this.workingTime = workingTime;
+        this.extraTime = extraTime;
+        this.workingTimePrice = workingTimePrice;
+        this.extraTimePrice = extraTimePrice;
+        this.totalProductPrice = totalProductPrice;
+        this.totalTimePrice = totalTimePrice;
+        this.transactionPrice = transactionPrice;
+        this.type = type;
+        this.transactionType = transactionType;
+        this.description = description;
     }
     public long getDate() {
         return this.date;

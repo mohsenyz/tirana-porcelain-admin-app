@@ -1,1 +1,1 @@
-include ':app', ':customview-helper', ':sundatepicker', ':calculator-dialog'
+include ':app', ':customview-helper', ':sundatepicker', ':calculator-dialog', ':persianmaterialdatetimepicker'
