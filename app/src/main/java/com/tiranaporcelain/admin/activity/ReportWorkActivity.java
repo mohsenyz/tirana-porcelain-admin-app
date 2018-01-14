@@ -1,6 +1,5 @@
 package com.tiranaporcelain.admin.activity;
 
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.transition.TransitionManager;
@@ -13,10 +12,14 @@ import android.widget.LinearLayout;
 import com.alirezaafkar.sundatepicker.DatePicker;
 import com.alirezaafkar.sundatepicker.components.JDF;
 import com.alirezaafkar.sundatepicker.interfaces.DateSetListener;
+import com.mohamadamin.persianmaterialdatetimepicker.time.TimePickerDialog;
 import com.tiranaporcelain.admin.R;
 import com.tiranaporcelain.admin.models.db.Report;
 import com.tiranaporcelain.admin.models.db.ReportProduct;
 import com.tiranaporcelain.admin.utils.DaoManager;
+import com.tiranaporcelain.admin.utils.LocaleUtils;
+import com.tiranaporcelain.admin.utils.NumUtils;
+import com.tiranaporcelain.admin.utils.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,13 +32,20 @@ import butterknife.OnTouch;
 import es.dmoral.toasty.Toasty;
 
 public class ReportWorkActivity extends BaseActivity implements
-        DateSetListener, View.OnClickListener{
+        DateSetListener, View.OnClickListener, TimePickerDialog.OnTimeSetListener{
 
     JDF currentDate = new JDF();
     DatePicker datePicker;
+    TimePickerDialog timePickerDialog;
 
     @BindView(R.id.input_date)
     EditText date;
+
+    @BindView(R.id.input_to_time)
+    EditText toTime;
+
+    @BindView(R.id.input_from_time)
+    EditText fromTime;
 
     @BindView(R.id.input_working_time)
     EditText workingTime;
@@ -66,11 +76,7 @@ public class ReportWorkActivity extends BaseActivity implements
     @OnTouch(R.id.input_date)
     boolean onDateTouch(View view, MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-            Rect rect = new Rect(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
-            if (!rect.contains(view.getLeft() + (int) motionEvent.getX(),
-                    view.getTop() + (int) motionEvent.getY()))
-                return true;
-            if (getDatePicker().isVisible())
+            if (getDatePicker().isVisible() || !ViewUtils.isInViewBound(view, motionEvent))
                 return true;
             getDatePicker().show(getSupportFragmentManager(), "DatePicker");
         }
@@ -78,16 +84,48 @@ public class ReportWorkActivity extends BaseActivity implements
     }
 
 
+    @OnTouch({R.id.input_from_time, R.id.input_to_time})
+    boolean onTimeTouch(View view, MotionEvent motionEvent) {
+        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+            if (getTimePicker().isVisible() || !ViewUtils.isInViewBound(view, motionEvent))
+                return true;
+            int time = view.getTag() == null ? 0 : (int) view.getTag();
+            getTimePicker(view.getId(), time / 60, time % 60).show(getFragmentManager(), "TimePicker");
+        }
+        return true;
+    }
+
     @Override
     public void onDateSet(int id, @Nullable Calendar calendar, int day, int month, int year) {
         currentDate = new JDF(calendar);
-        date.setText(currentDate.getIranianDate());
+        date.setText(LocaleUtils.e2f(currentDate.getIranianDate()));
         date.setTag(calendar.getTime().getTime());
         date.clearFocus();
     }
 
 
-    public synchronized DatePicker getDatePicker() {
+    @Override
+    public void onTimeSet(int id, int hourOfDay, int minute) {
+        String formattedTime = new StringBuilder()
+                .append(LocaleUtils.e2f(NumUtils.intToString(hourOfDay, 2)))
+                .append(":")
+                .append(LocaleUtils.e2f(NumUtils.intToString(minute, 2)))
+                .toString();
+        int time = hourOfDay * 60 + minute;
+
+        switch (id) {
+            case R.id.input_from_time:
+                fromTime.setText(formattedTime);
+                fromTime.setTag(time);
+                break;
+            case R.id.input_to_time:
+                toTime.setText(formattedTime);
+                toTime.setTag(time);
+                break;
+        }
+    }
+
+    public DatePicker getDatePicker() {
         if (datePicker == null) {
             datePicker = new DatePicker.Builder()
                     .future(true)
@@ -96,6 +134,26 @@ public class ReportWorkActivity extends BaseActivity implements
                     .build(this);
         }
         return datePicker;
+    }
+
+
+    public TimePickerDialog getTimePicker(int id, int hourOfDay, int minute) {
+        if (timePickerDialog == null) {
+            timePickerDialog = TimePickerDialog.newInstance(
+                    this,
+                    hourOfDay,
+                    minute,
+                    true);
+        }
+        timePickerDialog.setId(id);
+        timePickerDialog.setInitialHourOfDay(hourOfDay);
+        timePickerDialog.setInitialMinute(minute);
+        return timePickerDialog;
+    }
+
+
+    public TimePickerDialog getTimePicker() {
+        return getTimePicker(0, 0, 0);
     }
 
 
@@ -128,10 +186,12 @@ public class ReportWorkActivity extends BaseActivity implements
         int workingTime = Integer.parseInt(
                 this.workingTime.getText().toString()
         );
+        int extraTime = Integer.parseInt(
+                this.extraTime.getText().toString()
+        );
         // @TODO Implement these
         int fromTime = 0;
         int toTime = 0;
-        int extraTime = 0;
         int workingTimePrice = 0;
         int extraTimePrice = 0;
 
