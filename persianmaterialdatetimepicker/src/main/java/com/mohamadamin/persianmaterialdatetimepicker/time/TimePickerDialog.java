@@ -99,6 +99,7 @@ public class TimePickerDialog extends DialogFragment implements OnValueSelectedL
     private boolean mIs24HourMode;
     private String mTitle;
     private boolean mThemeDark;
+    private int id;
 
     // For hardware IME input.
     private char mPlaceholderText;
@@ -123,11 +124,11 @@ public class TimePickerDialog extends DialogFragment implements OnValueSelectedL
     public interface OnTimeSetListener {
 
         /**
-         * @param view The view associated with this listener.
+         * @param id id of dialog
          * @param hourOfDay The hour that was set.
          * @param minute The minute that was set.
          */
-        void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute);
+        void onTimeSet(int id, int hourOfDay, int minute);
     }
 
     public TimePickerDialog() {
@@ -158,6 +159,15 @@ public class TimePickerDialog extends DialogFragment implements OnValueSelectedL
         mInKbMode = false;
         mTitle = "";
         mThemeDark = false;
+    }
+
+
+    public void setInitialHourOfDay(int hourOfDay) {
+        this.mInitialHourOfDay = hourOfDay;
+    }
+
+    public void setInitialMinute(int minute) {
+        this.mInitialMinute = minute;
     }
 
     /**
@@ -198,6 +208,10 @@ public class TimePickerDialog extends DialogFragment implements OnValueSelectedL
         mInitialHourOfDay = hourOfDay;
         mInitialMinute = minute;
         mInKbMode = false;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -284,7 +298,7 @@ public class TimePickerDialog extends DialogFragment implements OnValueSelectedL
                     tryVibrate();
                 }
                 if (mCallback != null) {
-                    mCallback.onTimeSet(mTimePicker,
+                    mCallback.onTimeSet(id,
                             mTimePicker.getHours(), mTimePicker.getMinutes());
                 }
                 dismiss();
@@ -568,7 +582,7 @@ public class TimePickerDialog extends DialogFragment implements OnValueSelectedL
                 finishKbMode(false);
             }
             if (mCallback != null) {
-                mCallback.onTimeSet(mTimePicker,
+                mCallback.onTimeSet(id,
                         mTimePicker.getHours(), mTimePicker.getMinutes());
             }
             dismiss();
