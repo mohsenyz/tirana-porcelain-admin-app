@@ -1,5 +1,6 @@
 package com.tiranaporcelain.admin.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.transition.TransitionManager;
@@ -8,18 +9,23 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.alirezaafkar.sundatepicker.DatePicker;
 import com.alirezaafkar.sundatepicker.components.JDF;
 import com.alirezaafkar.sundatepicker.interfaces.DateSetListener;
 import com.mohamadamin.persianmaterialdatetimepicker.time.TimePickerDialog;
 import com.tiranaporcelain.admin.R;
+import com.tiranaporcelain.admin.models.db.Category;
+import com.tiranaporcelain.admin.models.db.Customer;
 import com.tiranaporcelain.admin.models.db.Report;
 import com.tiranaporcelain.admin.models.db.ReportProduct;
 import com.tiranaporcelain.admin.utils.DaoManager;
 import com.tiranaporcelain.admin.utils.LocaleUtils;
 import com.tiranaporcelain.admin.utils.NumUtils;
 import com.tiranaporcelain.admin.utils.ViewUtils;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,7 +38,13 @@ import butterknife.OnTouch;
 import es.dmoral.toasty.Toasty;
 
 public class ReportWorkActivity extends BaseActivity implements
-        DateSetListener, View.OnClickListener, TimePickerDialog.OnTimeSetListener{
+        DateSetListener,
+        View.OnClickListener,
+        TimePickerDialog.OnTimeSetListener,
+        View.OnTouchListener{
+
+    public static final int REQUEST_PRODUCT = 1, REQUEST_PERSON = 2;
+
 
     JDF currentDate = new JDF();
     DatePicker datePicker;
@@ -53,8 +65,17 @@ public class ReportWorkActivity extends BaseActivity implements
     @BindView(R.id.input_extra_time)
     EditText extraTime;
 
+    @BindView(R.id.working_time_price)
+    EditText workingTimePrice;
+
+    @BindView(R.id.extra_time_price)
+    EditText extraTimePrice;
+
     @BindView(R.id.product_container)
     LinearLayout productContainer;
+
+    @BindView(R.id.person_name)
+    TextView personName;
 
     View productItem;
 
@@ -70,6 +91,7 @@ public class ReportWorkActivity extends BaseActivity implements
 
     void init() {
         date.setText(currentDate.getIranianDate());
+        date.setTag(Calendar.getInstance().getTime().getTime());
     }
 
 
@@ -84,7 +106,12 @@ public class ReportWorkActivity extends BaseActivity implements
     }
 
 
-    @OnTouch({R.id.input_from_time, R.id.input_to_time})
+    @OnTouch({
+            R.id.input_from_time,
+            R.id.input_to_time,
+            R.id.input_working_time,
+            R.id.input_extra_time
+    })
     boolean onTimeTouch(View view, MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
             if (getTimePicker().isVisible() || !ViewUtils.isInViewBound(view, motionEvent))
@@ -112,18 +139,55 @@ public class ReportWorkActivity extends BaseActivity implements
                 .append(LocaleUtils.e2f(NumUtils.intToString(minute, 2)))
                 .toString();
         int time = hourOfDay * 60 + minute;
-
+        TextView effectedView = null;
         switch (id) {
             case R.id.input_from_time:
-                fromTime.setText(formattedTime);
-                fromTime.setTag(time);
+                effectedView = fromTime;
                 break;
             case R.id.input_to_time:
-                toTime.setText(formattedTime);
-                toTime.setTag(time);
+                effectedView = toTime;
+                break;
+            case R.id.input_working_time:
+                effectedView = workingTime;
+                break;
+            case R.id.input_extra_time:
+                effectedView = extraTime;
                 break;
         }
+        if (effectedView != null) {
+            effectedView.setText(formattedTime);
+            effectedView.setTag(time);
+        }
+        invalidateTime(id);
     }
+
+    private void invalidateTime(int changedItem) {
+        if (fromTime.getTag() == null || toTime.getTag() == null)
+            return;
+        int mExtraTime = extraTime.getTag() == null ? 0 : (int) extraTime.getTag();
+        int mWorkingTime = workingTime.getTag() == null ? 0 : (int) workingTime.getTag();
+        int timePeriod = (int) toTime.getTag() - (int) fromTime.getTag();
+        if (mWorkingTime == 0 && mExtraTime != 0) {
+            mWorkingTime = timePeriod - mExtraTime;
+        } else if (mExtraTime == 0 && mWorkingTime != 0) {
+            mExtraTime = timePeriod - mWorkingTime;
+        } else if (mExtraTime == 0 && mWorkingTime == 0) {
+            mWorkingTime = timePeriod;
+        }
+        workingTime.setTag(mWorkingTime);
+        extraTime.setTag(mExtraTime);
+        workingTime.setText(formatTime(mWorkingTime) + "  (کاری)");
+        extraTime.setText(formatTime(mExtraTime) +  " (اضافه)");
+    }
+
+    String formatTime(int time) {
+        return new StringBuilder()
+                .append(LocaleUtils.e2f(NumUtils.intToString(time / 60, 2)))
+                .append(":")
+                .append(LocaleUtils.e2f(NumUtils.intToString(time % 60, 2)))
+                .toString();
+    }
+
 
     public DatePicker getDatePicker() {
         if (datePicker == null) {
@@ -165,9 +229,27 @@ public class ReportWorkActivity extends BaseActivity implements
         TransitionManager.beginDelayedTransition(productContainer);
         productContainer.addView(productItem);
         productItem.findViewById(R.id.delete).setOnClickListener(this);
-        productItem.findViewById(R.id.input_product_name).setOnClickListener(this);
+        productItem.findViewById(R.id.input_product_name).setOnTouchListener(this);
     }
 
+    EditText pendingProductName;
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+            if (getTimePicker().isVisible() || !ViewUtils.isInViewBound(view, motionEvent))
+                return true;
+            if (view.getId() == R.id.input_product_name) {
+                startActivityForResult(
+                        new Intent(this, SelectCategoryActivity.class),
+                        REQUEST_PRODUCT
+                );
+                pendingProductName = (EditText) view;
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public void onClick(View v) {
@@ -180,31 +262,41 @@ public class ReportWorkActivity extends BaseActivity implements
     }
 
 
+    @OnClick(R.id.select_person)
+    void onRequestPerson() {
+        startActivityForResult(
+                new Intent(this, SelectCustomerActivity.class),
+                REQUEST_PERSON
+        );
+    }
+
+
     @OnClick(R.id.submit)
     void submit() {
         Report report = new Report();
-        int workingTime = Integer.parseInt(
-                this.workingTime.getText().toString()
+        int workingTime = (int) this.workingTime.getTag();
+        int extraTime = (int) this.extraTime.getTag();
+        int fromTime = (int) this.fromTime.getTag();
+        int toTime = (int) this.toTime.getTag();
+
+        int workingTimePrice = Integer.parseInt(
+                this.workingTimePrice.getText().toString()
         );
-        int extraTime = Integer.parseInt(
-                this.extraTime.getText().toString()
+        int extraTimePrice = Integer.parseInt(
+                this.extraTimePrice.getText().toString()
         );
-        // @TODO Implement these
-        int fromTime = 0;
-        int toTime = 0;
-        int workingTimePrice = 0;
-        int extraTimePrice = 0;
 
         report.setFromTime(fromTime);
         report.setToTime(toTime);
         report.setDate((long) date.getTag());
+        report.setPersonId((int) personName.getTag());
         report.setExtraTime(extraTime);
         report.setWorkingTime(workingTime);
         report.setExtraTimePrice(extraTimePrice);
         report.setWorkingTimePrice(workingTimePrice);
         report.setType(Report.TYPE_WORKING_REPORT);
         DaoManager.session().getReportDao().save(report);
-        ReportProduct[] reportProducts = validateReportProducts(
+        List<ReportProduct> reportProducts = validateReportProducts(
                 getProductList(report.getId().intValue())
         );
         DaoManager.session().getReportProductDao().saveInTx(reportProducts);
@@ -213,13 +305,13 @@ public class ReportWorkActivity extends BaseActivity implements
     }
 
 
-    ReportProduct[] validateReportProducts(ReportProduct[] reportProducts) {
+    List<ReportProduct> validateReportProducts(ReportProduct[] reportProducts) {
         List<ReportProduct> validatedReportProducts = new ArrayList<>();
         for (ReportProduct reportProduct : reportProducts) {
-            if (reportProduct.isValid())
+            if (reportProduct != null && reportProduct.isValid())
                 validatedReportProducts.add(reportProduct);
         }
-        return (ReportProduct[]) validatedReportProducts.toArray();
+        return validatedReportProducts;
     }
 
 
@@ -235,13 +327,39 @@ public class ReportWorkActivity extends BaseActivity implements
 
     ReportProduct collectProductFromView(View view, int reportId) {
         EditText countInput = (EditText) view.findViewById(R.id.input_count);
-        EditText priceInput = (EditText) view.findViewById(R.id.input_price);
+        EditText priceInput = (EditText) view.findViewById(R.id.input_product_price);
         EditText productName = (EditText) view.findViewById(R.id.input_product_name);
         ReportProduct reportProduct = new ReportProduct();
-        reportProduct.setReportId(reportId);
-        reportProduct.setCount(Integer.parseInt(countInput.getText().toString()));
-        reportProduct.setPrice(Double.valueOf(priceInput.getText().toString()).intValue());
-        reportProduct.setProductId((int) productName.getTag());
+        try {
+            reportProduct.setReportId(reportId);
+            reportProduct.setCount(Integer.parseInt(countInput.getText().toString()));
+            reportProduct.setPrice(Double.valueOf(priceInput.getText().toString()).intValue());
+            reportProduct.setProductId((int) productName.getTag());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return reportProduct;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_PRODUCT :
+                if (resultCode == RESULT_OK) {
+                    Category category = Parcels.unwrap(data.getParcelableExtra("category"));
+                    pendingProductName.setText(category.getName());
+                    pendingProductName.setTag(category.getId().intValue());
+                    pendingProductName.clearFocus();
+                }
+                break;
+            case REQUEST_PERSON :
+                if (resultCode == RESULT_OK) {
+                    Customer customer = Parcels.unwrap(data.getParcelableExtra("customer"));
+                    personName.setTag(customer.getId().intValue());
+                    personName.setText(customer.getName() + " (" + LocaleUtils.e2f(customer.getPhone()) + ")");
+                }
+                break;
+        }
     }
 }

@@ -36,33 +36,13 @@ public class Report {
     public int type;
     public int transactionType;
     public String description;
-    public Report(long date, int fromTime, int toTime, int workingTime,
-                  int extraTime, int workingTimePrice, int extraTimePrice,
-                  int totalProductPrice, int totalTimePrice, int transactionPrice,
-                  int type, int transactionType, String description) {
-        this.date = date;
-        this.fromTime = fromTime;
-        this.toTime = toTime;
-        this.workingTime = workingTime;
-        this.extraTime = extraTime;
-        this.workingTimePrice = workingTimePrice;
-        this.extraTimePrice = extraTimePrice;
-        this.totalProductPrice = totalProductPrice;
-        this.totalTimePrice = totalTimePrice;
-        this.transactionPrice = transactionPrice;
-        this.type = type;
-        this.transactionType = transactionType;
-        this.description = description;
-    }
+    public int personId;
 
-    public Report() {
-    }
-
-    @Generated(hash = 1785145994)
+    @Generated(hash = 1999862858)
     public Report(Long id, long date, int fromTime, int toTime, int workingTime,
             int extraTime, int workingTimePrice, int extraTimePrice,
             int totalProductPrice, int totalTimePrice, int transactionPrice,
-            int type, int transactionType, String description) {
+            int type, int transactionType, String description, int personId) {
         this.id = id;
         this.date = date;
         this.fromTime = fromTime;
@@ -77,7 +57,12 @@ public class Report {
         this.type = type;
         this.transactionType = transactionType;
         this.description = description;
+        this.personId = personId;
     }
+    @Generated(hash = 1739299007)
+    public Report() {
+    }
+
     public long getDate() {
         return this.date;
     }
@@ -163,5 +148,13 @@ public class Report {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 }

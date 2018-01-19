@@ -72,6 +72,6 @@ public class ReportProduct {
     }
 
     public boolean isValid() {
-        return id != 0 && productId != 0 && price != 0 && count != 0 && reportId != 0;
+        return productId != 0 && price != 0 && count != 0 && reportId != 0;
     }
 }

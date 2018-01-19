@@ -146,7 +146,7 @@ public class DashboardActivity extends BaseActivity implements DashboardView, Vi
 
     @OnClick(R.id.fab_menu_rep_dec)
     public void onClickRepDec() {
-
+        startActivity(new Intent(this, ReportDeficitActivity.class));
     }
 
 

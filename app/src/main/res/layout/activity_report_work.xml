@@ -52,6 +52,35 @@
             </android.support.design.widget.TextInputLayout>
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/select_person">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="right"
+                    android:padding="4dp"
+                    android:background="@drawable/border_shape_green">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="انتخاب شخص"
+                        android:layout_marginRight="4dp"
+                        android:textColor="#000"
+                        android:textStyle="bold"
+                        android:id="@+id/person_name"
+                        android:layout_gravity="right|center_vertical"/>
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/user"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="2dp"
+                        android:src="@drawable/user"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -68,24 +97,49 @@
                         <EditText
                             android:id="@+id/input_to_time"
                             android:layout_width="0dp"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.4"
                             android:textAlignment="center"
                             android:layout_height="wrap_content"
                             android:inputType="textPersonName"
-                            android:hint="تا ساعت" />
+                            android:hint="ساعت" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.1"
+                            android:layout_height="wrap_content"
+                            android:textSize="12dp"
+                            android:textAlignment="center"
+                            android:textColor="#000"
+                            android:text="تا"/>
                         <EditText
                             android:id="@+id/input_from_time"
                             android:layout_width="0dp"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.4"
                             android:textAlignment="center"
                             android:layout_height="wrap_content"
                             android:inputType="textPersonName"
-                            android:hint="از ساعت" />
+                            android:hint="ساعت" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.1"
+                            android:layout_height="wrap_content"
+                            android:textSize="12dp"
+                            android:textColor="#000"
+                            android:textAlignment="center"
+                            android:text="از"/>
                     </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_margin="4dp"/>
+                        android:layout_height="3dp"
+                        android:background="@drawable/bp_gradient"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -108,7 +162,39 @@
                             android:inputType="textPersonName"
                             android:hint="ساعات کاری" />
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:layout_height="wrap_content">
 
+                            <EditText
+                                android:id="@+id/working_time_price"
+                                android:layout_width="match_parent"
+                                android:textAlignment="center"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:hint="قیمت هر ساعت کاری" />
+
+                        </android.support.design.widget.TextInputLayout>
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="0.5"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/extra_time_price"
+                                android:layout_width="match_parent"
+                                android:textAlignment="center"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:hint="قیمت هر ساعت اضافه کاری" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <TextView
