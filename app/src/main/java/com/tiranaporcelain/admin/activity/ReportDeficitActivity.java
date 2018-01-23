@@ -17,6 +17,8 @@ import com.alirezaafkar.sundatepicker.components.JDF;
 import com.alirezaafkar.sundatepicker.interfaces.DateSetListener;
 import com.tiranaporcelain.admin.R;
 import com.tiranaporcelain.admin.models.db.Customer;
+import com.tiranaporcelain.admin.models.db.Report;
+import com.tiranaporcelain.admin.utils.DaoManager;
 import com.tiranaporcelain.admin.utils.LocaleUtils;
 import com.tiranaporcelain.admin.utils.ViewUtils;
 
@@ -28,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTouch;
+import es.dmoral.toasty.Toasty;
 
 public class ReportDeficitActivity extends BaseActivity implements
         DateSetListener{
@@ -123,6 +126,44 @@ public class ReportDeficitActivity extends BaseActivity implements
                 }
                 break;
         }
+    }
+
+    @OnClick(R.id.submit)
+    void onSubmit() {
+        long date = (long) this.date.getTag();
+        int personId = (int) this.personName.getTag();
+        int price = Integer.parseInt(
+                this.price.getText().toString()
+        );
+        int transactionType = Report.TRANSACTION_HELP;
+        switch (radioGroup.getCheckedRadioButtonId()) {
+            case R.id.help:
+                transactionType = Report.TRANSACTION_HELP;
+                break;
+            case R.id.debit:
+                transactionType = Report.TRANSACTION_DEBT;
+                break;
+            case R.id.insurance:
+                transactionType = Report.TRANSACTION_INSURANCE;
+                break;
+            case R.id.other:
+                transactionType = Report.TRANSACTION_OTHERS;
+                break;
+        }
+
+        String description = (transactionType == Report.TRANSACTION_OTHERS) ?
+                this.description.getText().toString() : null;
+
+        Report report = new Report();
+        report.setDate(date);
+        report.setPersonId(personId);
+        report.setTransactionType(transactionType);
+        report.setTransactionPrice(price);
+        report.setDescription(description);
+        report.setType(Report.TYPE_TRANSACTION);
+        DaoManager.session().getReportDao().save(report);
+        Toasty.success(this, "گزارش ثبت شد").show();
+        finish();
     }
 
     @OnClick({R.id.other, R.id.insurance, R.id.help, R.id.debit})
