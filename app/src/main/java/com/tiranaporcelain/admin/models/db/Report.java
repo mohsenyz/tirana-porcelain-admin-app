@@ -31,18 +31,17 @@ public class Report {
     public int workingTimePrice;
     public int extraTimePrice;
     public int totalProductPrice;
-    public int totalTimePrice;
     public int transactionPrice;
     public int type;
     public int transactionType;
     public String description;
     public int personId;
 
-    @Generated(hash = 1999862858)
+    @Generated(hash = 391471817)
     public Report(Long id, long date, int fromTime, int toTime, int workingTime,
             int extraTime, int workingTimePrice, int extraTimePrice,
-            int totalProductPrice, int totalTimePrice, int transactionPrice,
-            int type, int transactionType, String description, int personId) {
+            int totalProductPrice, int transactionPrice, int type,
+            int transactionType, String description, int personId) {
         this.id = id;
         this.date = date;
         this.fromTime = fromTime;
@@ -52,7 +51,6 @@ public class Report {
         this.workingTimePrice = workingTimePrice;
         this.extraTimePrice = extraTimePrice;
         this.totalProductPrice = totalProductPrice;
-        this.totalTimePrice = totalTimePrice;
         this.transactionPrice = transactionPrice;
         this.type = type;
         this.transactionType = transactionType;
@@ -110,12 +108,6 @@ public class Report {
     }
     public void setTotalProductPrice(int totalProductPrice) {
         this.totalProductPrice = totalProductPrice;
-    }
-    public int getTotalTimePrice() {
-        return this.totalTimePrice;
-    }
-    public void setTotalTimePrice(int totalTimePrice) {
-        this.totalTimePrice = totalTimePrice;
     }
     public int getTransactionPrice() {
         return this.transactionPrice;

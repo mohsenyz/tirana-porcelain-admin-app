@@ -295,10 +295,15 @@ public class ReportWorkActivity extends BaseActivity implements
         report.setExtraTimePrice(extraTimePrice);
         report.setWorkingTimePrice(workingTimePrice);
         report.setType(Report.TYPE_WORKING_REPORT);
-        DaoManager.session().getReportDao().save(report);
         List<ReportProduct> reportProducts = validateReportProducts(
                 getProductList(report.getId().intValue())
         );
+        int totalProductPrice = 0;
+        for (ReportProduct reportProduct : reportProducts) {
+            totalProductPrice += reportProduct.getPrice() * reportProduct.getCount();
+        }
+        report.setTotalProductPrice(totalProductPrice);
+        DaoManager.session().getReportDao().save(report);
         DaoManager.session().getReportProductDao().saveInTx(reportProducts);
         Toasty.success(this, "گزارش ثبت شد").show();
         finish();
