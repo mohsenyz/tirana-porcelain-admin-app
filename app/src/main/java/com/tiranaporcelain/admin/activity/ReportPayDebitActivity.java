@@ -15,17 +15,30 @@ import com.alirezaafkar.sundatepicker.components.JDF;
 import com.alirezaafkar.sundatepicker.interfaces.DateSetListener;
 import com.tiranaporcelain.admin.R;
 import com.tiranaporcelain.admin.models.db.Customer;
+import com.tiranaporcelain.admin.models.db.Report;
+import com.tiranaporcelain.admin.models.db.ReportDao;
+import com.tiranaporcelain.admin.utils.DaoManager;
 import com.tiranaporcelain.admin.utils.LocaleUtils;
+import com.tiranaporcelain.admin.utils.TimeUtils;
 import com.tiranaporcelain.admin.utils.ViewUtils;
 
 import org.parceler.Parcels;
 
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTouch;
+import es.dmoral.toasty.Toasty;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class ReportPayDebitActivity extends BaseActivity implements DateSetListener {
 
@@ -116,9 +129,78 @@ public class ReportPayDebitActivity extends BaseActivity implements DateSetListe
                     Customer customer = Parcels.unwrap(data.getParcelableExtra("customer"));
                     personName.setTag(customer.getId().intValue());
                     personName.setText(customer.getName() + " (" + LocaleUtils.e2f(customer.getPhone()) + ")");
+                    invalidatePerson(customer.getId().intValue());
                 }
                 break;
         }
     }
 
+
+    @OnClick(R.id.submit)
+    void submit() {
+        long date = (long) this.date.getTag();
+        int personId = (int) this.personName.getTag();
+        int price = Integer.parseInt(
+                this.price.getText().toString()
+        );
+        String description = this.description.getText().toString();
+        if (description.trim().isEmpty())
+            description = "تسویه حساب تاریخ " + this.date.getText().toString();
+
+        Report report = new Report();
+        report.setDate(date);
+        report.setPersonId(personId);
+        report.setTransactionType(Report.TRANSACTION_SALARY);
+        report.setTransactionPrice(price);
+        report.setDescription(description);
+        report.setType(Report.TYPE_TRANSACTION);
+        DaoManager.session().getReportDao().save(report);
+        Toasty.success(this, "گزارش ثبت شد").show();
+        finish();
+    }
+
+
+    void invalidatePerson(final int personId) {
+        Observable
+                .create(new ObservableOnSubscribe<Object>() {
+                    @Override
+                    public void subscribe(ObservableEmitter<Object> e) throws Exception {
+                        ReportDao reportDao = DaoManager.session().getReportDao();
+                        List<Report> list = reportDao.queryBuilder()
+                                .where(ReportDao.Properties.PersonId.eq(personId))
+                                .list();
+                        int price = 0;
+                        for (Report report : list) {
+                            if (report.getType() == Report.TYPE_WORKING_REPORT) {
+                                price += report.getTotalProductPrice();
+                                price += Math.round(TimeUtils.minAsHour(report.getExtraTime()) * report.getExtraTimePrice());
+                                price += Math.round(TimeUtils.minAsHour(report.getWorkingTime()) * report.getWorkingTimePrice());
+                            } else if (report.getType() == Report.TYPE_TRANSACTION) {
+                                price -= report.getTransactionPrice();
+                            }
+                        }
+                        e.onNext(price);
+                        e.onComplete();
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(Object o) throws Exception {
+                        int mPrice = (int) o;
+                        price.setText(LocaleUtils.e2f(String.valueOf(mPrice)));
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        throwable.printStackTrace();
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        price.clearFocus();
+                    }
+                });
+    }
 }
