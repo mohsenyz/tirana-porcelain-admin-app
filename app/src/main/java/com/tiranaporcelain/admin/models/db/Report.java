@@ -19,7 +19,8 @@ public class Report {
     public static final transient int TRANSACTION_HELP = 1,
             TRANSACTION_INSURANCE = 2,
             TRANSACTION_DEBT = 3,
-            TRANSACTION_OTHERS = 4;
+            TRANSACTION_OTHERS = 4,
+            TRANSACTION_SALARY = 5;
 
     @Id(autoincrement = true)
     public Long id;

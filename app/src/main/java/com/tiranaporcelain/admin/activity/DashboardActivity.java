@@ -152,7 +152,7 @@ public class DashboardActivity extends BaseActivity implements DashboardView, Vi
 
     @OnClick(R.id.fab_menu_pay_debit)
     public void onClickPayDebit() {
-
+        startActivity(new Intent(this, ReportPayDebitActivity.class));
     }
 
 
