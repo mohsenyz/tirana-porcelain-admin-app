@@ -172,12 +172,12 @@
                             android:layout_height="wrap_content">
 
                             <EditText
-                                android:id="@+id/working_time_price"
+                                android:id="@+id/extra_time_price"
                                 android:layout_width="match_parent"
                                 android:textAlignment="center"
                                 android:layout_height="wrap_content"
                                 android:inputType="number"
-                                android:hint="قیمت هر ساعت کاری" />
+                                android:hint="قیمت هر ساعت اضافه کاری" />
 
                         </android.support.design.widget.TextInputLayout>
                         <android.support.design.widget.TextInputLayout
@@ -186,12 +186,12 @@
                             android:layout_height="wrap_content">
 
                             <EditText
-                                android:id="@+id/extra_time_price"
+                                android:id="@+id/working_time_price"
                                 android:layout_width="match_parent"
                                 android:textAlignment="center"
                                 android:layout_height="wrap_content"
                                 android:inputType="number"
-                                android:hint="قیمت هر ساعت اضافه کاری" />
+                                android:hint="قیمت هر ساعت کاری" />
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>

@@ -295,6 +295,7 @@ public class ReportWorkActivity extends BaseActivity implements
         report.setExtraTimePrice(extraTimePrice);
         report.setWorkingTimePrice(workingTimePrice);
         report.setType(Report.TYPE_WORKING_REPORT);
+        DaoManager.session().getReportDao().save(report);
         List<ReportProduct> reportProducts = validateReportProducts(
                 getProductList(report.getId().intValue())
         );

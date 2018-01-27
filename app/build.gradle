@@ -49,7 +49,6 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     annotationProcessor 'org.parceler:parceler:1.1.9'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile 'org.apache.poi:poi:3.9'
     compile 'com.github.angads25:filepicker:1.1.1'
     implementation project(':customview-helper')
     compile 'org.greenrobot:greendao:3.2.2'
