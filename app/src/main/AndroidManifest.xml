@@ -57,8 +57,11 @@
         <activity
             android:name=".activity.ReportDeficitActivity"
             android:theme="@style/AppTheme.Dialog.NoTitle" />
-        <activity android:name=".activity.ReportPayDebitActivity"
-            android:theme="@style/AppTheme.Dialog.NoTitle" ></activity>
+        <activity
+            android:name=".activity.ReportPayDebitActivity"
+            android:theme="@style/AppTheme.Dialog.NoTitle" />
+        <activity android:name=".activity.WorkReportViewActivity"
+            android:theme="@style/AppTheme.Dialog.NoTitle"></activity>
     </application>
 
 </manifest>
