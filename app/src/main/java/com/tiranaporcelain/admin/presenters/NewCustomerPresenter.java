@@ -6,4 +6,5 @@ package com.tiranaporcelain.admin.presenters;
 
 public interface NewCustomerPresenter extends BasePresenter {
     void createCustomer(String name, String phone, String fixedPhone, String address, String description);
+    void updateCustomer(String name, String phone, String fixedPhone, String address, String description, int customerId);
 }

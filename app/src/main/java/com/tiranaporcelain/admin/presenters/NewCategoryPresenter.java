@@ -6,4 +6,5 @@ package com.tiranaporcelain.admin.presenters;
 
 public interface NewCategoryPresenter extends BasePresenter{
     void newStorage(String name);
+    void updateStorage(String name, int categoryId);
 }

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.view.View;
 
 import com.tiranaporcelain.admin.R;
+import com.tiranaporcelain.admin.activity.NewCustomerActivity;
 import com.tiranaporcelain.admin.interfaces.dialog.CustomerSettingView;
 import com.tiranaporcelain.admin.models.SimpleListModel;
 import com.tiranaporcelain.admin.models.db.Customer;
@@ -37,7 +38,14 @@ public class CustomerSettingPresenterImpl implements CustomerSettingPresenter {
     @Override
     public void loadList(final Customer customer) {
         List<SimpleListModel> list = new ArrayList<>();
-        SimpleListModel model = new SimpleListModel("ویرایش", R.drawable.ic_gray_edit);
+        SimpleListModel model = new SimpleListModel("ویرایش", R.drawable.ic_gray_edit, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), NewCustomerActivity.class);
+                i.putExtra("id", customer.getId().intValue());
+                v.getContext().startActivity(i);
+            }
+        });
         list.add(model);
         model = new SimpleListModel("تماس", R.drawable.ic_gray_call, new View.OnClickListener() {
             @Override

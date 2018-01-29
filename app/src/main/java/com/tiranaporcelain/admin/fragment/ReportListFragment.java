@@ -78,8 +78,6 @@ public class ReportListFragment extends Fragment implements DateSetListener {
     @BindView(R.id.checkbox_work)
     CheckBox work;
 
-    String personNameText;
-
     public static ReportListFragment newInstance(){
         return new ReportListFragment();
     }
@@ -123,6 +121,8 @@ public class ReportListFragment extends Fragment implements DateSetListener {
 
     List<Report> loadList() {
         QueryBuilder queryBuilder = DaoManager.session().getReportDao().queryBuilder();
+        queryBuilder.orderDesc(ReportDao.Properties.Date);
+        queryBuilder.orderDesc(ReportDao.Properties.Id);
         if (fromDate != null) {
             queryBuilder.where(ReportDao.Properties.Date.ge(fromDate.getTime().getTime()));
         }

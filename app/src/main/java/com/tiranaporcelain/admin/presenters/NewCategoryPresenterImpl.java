@@ -41,4 +41,18 @@ public class NewCategoryPresenterImpl implements NewCategoryPresenter {
         dao.save(category);
         view.finishActivity();
     }
+
+
+    @Override
+    public void updateStorage(String name, int categoryId) {
+        if (TextUtils.isEmpty(name)) {
+            view.invalidStorageName();
+            return;
+        }
+        CategoryDao dao = DaoManager.session().getCategoryDao();
+        Category category = dao.load((long) categoryId);
+        category.setName(name);
+        dao.save(category);
+        view.finishActivity();
+    }
 }
