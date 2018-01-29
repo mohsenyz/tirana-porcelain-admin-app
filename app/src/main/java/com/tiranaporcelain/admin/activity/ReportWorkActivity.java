@@ -274,18 +274,35 @@ public class ReportWorkActivity extends BaseActivity implements
     @OnClick(R.id.submit)
     void submit() {
         Report report = new Report();
-        int workingTime = (int) this.workingTime.getTag();
-        int extraTime = (int) this.extraTime.getTag();
-        int fromTime = (int) this.fromTime.getTag();
-        int toTime = (int) this.toTime.getTag();
+        int workingTime = 0;
+        if (this.workingTime.getTag() != null)
+            workingTime = (int) this.workingTime.getTag();
+        int extraTime = 0;
+        if (this.extraTime.getTag() != null)
+            extraTime = (int) this.extraTime.getTag();
+        int fromTime = 0;
+        if (this.fromTime.getTag() != null)
+            fromTime = (int) this.fromTime.getTag();
+        int toTime = 0;
+        if (this.toTime.getTag() != null)
+            toTime = (int) this.toTime.getTag();
 
-        int workingTimePrice = Integer.parseInt(
-                this.workingTimePrice.getText().toString()
-        );
-        int extraTimePrice = Integer.parseInt(
-                this.extraTimePrice.getText().toString()
-        );
+        int workingTimePrice = 0;
+        int extraTimePrice = 0;
+        try{
+            workingTimePrice = Integer.parseInt(
+                    this.workingTimePrice.getText().toString()
+            );
+        } catch (Exception e) {
 
+        }
+        try{
+            extraTimePrice = Integer.parseInt(
+                    this.extraTimePrice.getText().toString()
+            );
+        }catch (Exception e) {
+
+        }
         report.setFromTime(fromTime);
         report.setToTime(toTime);
         report.setDate((long) date.getTag());

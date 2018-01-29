@@ -10,6 +10,7 @@ import com.tiranaporcelain.admin.fragment.CategoryListFragment;
 import com.tiranaporcelain.admin.fragment.CustomerListFragment;
 import com.tiranaporcelain.admin.fragment.MainFragment;
 import com.tiranaporcelain.admin.fragment.PlaceHolderFragment;
+import com.tiranaporcelain.admin.fragment.ReportListFragment;
 import com.tiranaporcelain.admin.models.db.CategoryDao;
 import com.tiranaporcelain.admin.models.db.CustomerDao;
 import com.tiranaporcelain.admin.utils.DaoManager;
@@ -44,7 +45,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
                     return PlaceHolderFragment.newInstance(0);
                 return CustomerListFragment.newInstance();
             case REPORTS:
-                return PlaceHolderFragment.newInstance(0);
+                return ReportListFragment.newInstance();
         }
         return PlaceHolderFragment.newInstance(position + 1);
     }
