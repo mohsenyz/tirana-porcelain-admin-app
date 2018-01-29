@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="wrap_content"
+    android:layout_height="40dp"
+    android:layout_marginRight="5dp"
+    android:background="@drawable/card_corner"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="right|center_vertical"
+        android:src="@drawable/user"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="45dp"
+        android:textColor="#000"
+        android:paddingLeft="5dp"
+        android:id="@+id/title"
+        android:layout_gravity="right|center_vertical"/>
+</FrameLayout>
