@@ -86,6 +86,15 @@ public class ReportWorkActivity extends BaseActivity implements
         ButterKnife.bind(this);
         init();
         addProductItem();
+        int customerId = getIntent().getIntExtra("customer_id", -1);
+        if (customerId != -1) {
+            Customer customer = DaoManager.session().getCustomerDao().load((long) customerId);
+            if (customer != null) {
+                Intent i = new Intent();
+                i.putExtra("customer", Parcels.wrap(Customer.class, customer));
+                onActivityResult(REQUEST_PERSON, RESULT_OK, i);
+            }
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.tiranaporcelain.admin.adapter;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.alirezaafkar.sundatepicker.components.JDF;
 import com.tiranaporcelain.admin.R;
+import com.tiranaporcelain.admin.activity.WorkReportViewActivity;
 import com.tiranaporcelain.admin.interfaces.OnObjectItemClick;
 import com.tiranaporcelain.admin.models.db.Customer;
 import com.tiranaporcelain.admin.models.db.Report;
@@ -87,6 +89,16 @@ public class ReportListAdapter extends RecyclerView.Adapter<ReportListAdapter.Re
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date(report.getDate()));
         viewHolder.button.setText(LocaleUtils.e2f(new JDF(calendar).getIranianDate()));
+        viewHolder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (report.getType() == Report.TYPE_WORKING_REPORT) {
+                    Intent i = new Intent(v.getContext(), WorkReportViewActivity.class);
+                    i.putExtra("id", report.getId().intValue());
+                    v.getContext().startActivity(i);
+                }
+            }
+        });
     }
 
     @Override
